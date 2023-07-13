@@ -1,38 +1,39 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { apiGet, apiAdd, apiDel } from '../api/api';
+import { apiGet, apiAdd, apiDel } from '../../api/api';
 
 export const getAllContacts = createAsyncThunk(
   'contacts/fetchAll',
-  async (_, { RejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       const { data } = await apiGet();
+      console.log(data);
       return data;
     } catch (error) {
-      RejectWithValue(error.message);
+      rejectWithValue(error.message);
     }
   }
 );
 
 export const addContact = createAsyncThunk(
   'contacts/addContact',
-  async (userData, { RejectWithValue }) => {
+  async (userData, { rejectWithValue }) => {
     try {
       const { data } = await apiAdd(userData);
       return data;
     } catch (error) {
-      RejectWithValue(error.message);
+      rejectWithValue(error.message);
     }
   }
 );
 
 export const delContact = createAsyncThunk(
   'contacts/deleteContact',
-  async (id, { RejectWithValue }) => {
+  async (id, { rejectWithValue }) => {
     try {
       const { data } = await apiDel(id);
       return data;
     } catch (error) {
-      RejectWithValue(error.message);
+      rejectWithValue(error.message);
     }
   }
 );

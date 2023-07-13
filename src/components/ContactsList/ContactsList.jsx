@@ -5,8 +5,8 @@ import {
   StyledContact,
 } from './ContactsList.styled';
 
-import { selectFilteredContacts } from 'redux/selectors';
-import { delContact } from 'redux/operations';
+import { selectFilteredContacts } from 'redux/contacts/selectors';
+import { delContact } from 'redux/contacts/operations';
 
 export const ContactsList = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ export const ContactsList = () => {
     <ContactsListWrapper>
       {filteredContacts.map(contact => (
         <StyledContact key={contact.id}>
-          {contact.name}:{contact.phone}
+          {contact.name}:{contact.number}
           <DelBtnStyled
             onClick={() => {
               dispatch(delContact(contact.id));

@@ -4,13 +4,13 @@ import { StyledAddForm } from './AddForm.styled';
 import { AddContactInput } from './AddFormInpt/AddFormInput';
 import { AddContactBtn } from './AddFormInpt/AddFormInput.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from 'redux/selectors';
-import { addContact } from 'redux/operations';
+import { selectContacts } from 'redux/contacts/selectors';
+import { addContact } from 'redux/contacts/operations';
 
 export const AddContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  const [contact, setContact] = useState({ name: '', phone: '' });
+  const [contact, setContact] = useState({ name: '', number: '' });
 
   const handleChange = ({ target }) => {
     setContact(prev => ({ ...prev, [target.name]: target.value }));
@@ -23,7 +23,7 @@ export const AddContactForm = () => {
 
     dispatch(addContact(contact));
 
-    setContact({ name: '', phone: '' });
+    setContact({ name: '', number: '' });
   };
 
   return (
@@ -47,7 +47,7 @@ export const AddContactForm = () => {
       <label>
         Number
         <AddContactInput
-          name={'phone'}
+          name={'number'}
           type={'tel'}
           validator={
             '+?d{1,4}?[-.s]?(?d{1,3}?)?[-.s]?d{1,4}[-.s]?d{1,4}[-.s]?d{1,9}'
@@ -56,7 +56,7 @@ export const AddContactForm = () => {
             'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
           }
           cb={handleChange}
-          value={contact.phone}
+          value={contact.number}
         />
       </label>
       <AddContactBtn type="submit">Add contact</AddContactBtn>

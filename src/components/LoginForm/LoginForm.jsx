@@ -1,20 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { NavLink } from 'react-router-dom';
+import { login } from 'redux/auth/authOperatoins';
+import { selectIsLoggedIn } from 'redux/auth/authSelectors';
 
-const LoginForm = () => {
+export const LoginForm = () => {
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const handleChange = ({ target }) => {
+    setCredentials(prev => ({ ...prev, [target.name]: target.value }));
+  };
   const handleSubmit = e => {
-    const { email, password } = e.target.elements;
+    e.preventDefault();
+    dispatch(login(credentials))
+      .unwrap()
+      .then(
+        isLoggedIn
+          ? () => navigate('/phonebook')
+          : alert('wrolg login or password')
+      );
+
     // thunk
   };
   return (
-    <form>
-      <input type="email" name="email" />
-      <input type="password" name="password" />
-      <button>Log In</button>
-      <button>Sign Up</button> //navigate
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        name="email"
+        value={credentials.email}
+        onChange={handleChange}
+      />
+      <input
+        type="password"
+        name="password"
+        value={credentials.password}
+        onChange={handleChange}
+      />
+      <button type="submit">Log In</button>
+      <NavLink to={'/signup'}>Sign Up</NavLink>
     </form>
   );
 };
 
-export default LoginForm;
+// export default LoginForm;
