@@ -13,7 +13,6 @@ export const Phonebook = () => {
 
   useEffect(() => {
     dispatch(getAllContacts());
-    console.log();
   }, [dispatch]);
 
   return (

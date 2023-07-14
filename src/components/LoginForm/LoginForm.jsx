@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router';
+
 import { NavLink } from 'react-router-dom';
 import { login } from 'redux/auth/authOperatoins';
-import { InputField, PrettyForm, SubmitButton } from '../Form.styled';
+import { InputField, PrettyForm, SubmitButton } from '../Form/Form.styled';
 
 export const LoginForm = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
-  const navigate = useNavigate();
-  const location = useLocation();
+
   const dispatch = useDispatch();
 
   const handleChange = ({ target }) => {
@@ -16,11 +15,7 @@ export const LoginForm = () => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(login(credentials))
-      .unwrap()
-      .then(() => navigate(location.state?.from.pathname ?? '/'));
-
-    // thunk
+    dispatch(login(credentials));
   };
   return (
     <PrettyForm onSubmit={handleSubmit}>

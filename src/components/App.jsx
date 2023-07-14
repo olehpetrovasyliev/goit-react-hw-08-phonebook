@@ -6,9 +6,9 @@ import { HomePage } from 'pages/HomePage';
 import { Phonebook } from 'pages/Phonebook';
 import { Registration } from 'pages/Registration';
 import { PageNotFound } from 'pages/PageNotFound';
-import { Layout } from 'pages/Layout';
+import { Layout } from 'components/Layout';
 import PrivateRoute from 'hoc/PrivateRoute';
-import { LoginForm } from './Form/LoginForm/LoginForm';
+import { LoginForm } from './LoginForm/LoginForm';
 import { PublicRoute } from 'hoc/PublicRoute';
 import { refresh } from 'redux/auth/authOperatoins';
 

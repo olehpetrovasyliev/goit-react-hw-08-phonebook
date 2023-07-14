@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
+
 import { NavLink } from 'react-router-dom';
 import { register } from 'redux/auth/authOperatoins';
-import { InputField, PrettyForm, SubmitButton } from '../Form.styled';
+import { InputField, PrettyForm, SubmitButton } from '../Form/Form.styled';
 
 const RegistrationForm = () => {
-  const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     name: '',
     email: '',
@@ -19,9 +18,7 @@ const RegistrationForm = () => {
   const handleSubmit = e => {
     e.preventDefault();
     // const { name, email, password } = e.target.elements;
-    dispatch(register(credentials))
-      .unwrap()
-      .then(() => navigate('/phonebook'));
+    dispatch(register(credentials));
   };
   return (
     <div>

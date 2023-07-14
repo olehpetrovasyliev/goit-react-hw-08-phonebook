@@ -1,9 +1,9 @@
 import React from 'react';
-import { NavItems } from '../NavItems/NavItems';
+import { NavItems } from './NavItems/NavItems';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from 'redux/auth/authSelectors';
 import { logout } from 'redux/auth/authOperatoins';
-import { LogoutBtn, PrettyHeader } from '../Header.styled';
+import { LogoutBtn, PrettyHeader } from './Header.styled';
 import { styled } from 'styled-components';
 
 export const UserHeader = () => {
