@@ -7,7 +7,6 @@ import {
   setToken,
   signUpAPI,
 } from 'api/api';
-import axios from 'axios';
 
 export const register = createAsyncThunk(
   'auth/register',

@@ -1,4 +1,3 @@
-import { signUp } from 'api/api';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
@@ -19,7 +18,7 @@ const RegistrationForm = () => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    const { name, email, password } = e.target.elements;
+    // const { name, email, password } = e.target.elements;
     dispatch(register(credentials))
       .unwrap()
       .then(() => navigate('/phonebook'));
