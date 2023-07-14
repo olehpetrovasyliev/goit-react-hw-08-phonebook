@@ -6,7 +6,7 @@ export const GuestHeader = () => {
   return (
     <header>
       <NavItems />
-      <h2>please log in or sign up to continue</h2>
+      <p>please log in or sign up to continue</p>
       <NavLink to={'/signup'}>Sign Up</NavLink>
       <NavLink to={'/login'}>Log In</NavLink>
     </header>

@@ -13,26 +13,46 @@ import { HomePage } from 'pages/HomePage';
 import Login from 'pages/Login';
 import { Phonebook } from 'pages/Phonebook';
 import { Registration } from 'pages/Registration';
-import PageNotFound from 'pages/PageNotFound';
+import { PageNotFound } from 'pages/PageNotFound';
 import { Layout } from 'pages/Layout';
+import PrivateRoute from 'hoc/PrivateRoute';
+import RegistrationForm from './RegistrationForm/RegistrationForm';
+import { LoginForm } from './LoginForm/LoginForm';
+import { PublicRoute } from 'hoc/PublicRoute';
+import { refresh } from 'redux/auth/authOperatoins';
 
 export const App = () => {
-  // const dispatch = useDispatch();
-  // const isRefreshing = useSelector(selectIsRefreshing);
+  const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectIsRefreshing);
 
-  // useEffect(() => {
-  //   dispatch(getAllContacts());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(refresh());
+  }, [dispatch]);
 
-  return (
+  return isRefreshing ? (
+    <h1>Loading</h1>
+  ) : (
     <Routes>
       <Route path="" element={<Layout />}>
         <Route index element={<HomePage />} />
-        <Route path="/signup" element={<Registration />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/phonebook" element={<Phonebook />} />
+        <Route
+          path="/signup"
+          element={<PublicRoute children={<Registration />} />}
+        />
+        <Route
+          path="/login"
+          element={<PublicRoute children={<LoginForm />} />}
+        />
+        <Route
+          path="/phonebook"
+          element={
+            <PrivateRoute>
+              <Phonebook />
+            </PrivateRoute>
+          }
+        />
       </Route>
-      {/* <Route path="*" element={<PageNotFound />} /> */}
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 };

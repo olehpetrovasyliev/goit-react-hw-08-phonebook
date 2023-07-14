@@ -1,5 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { clearToken, logInAPI, logOutAPI, setToken, signUpAPI } from 'api/api';
+import {
+  clearToken,
+  currentUserAPI,
+  logInAPI,
+  logOutAPI,
+  setToken,
+  signUpAPI,
+} from 'api/api';
 import axios from 'axios';
 
 export const register = createAsyncThunk(
@@ -21,6 +28,7 @@ export const login = createAsyncThunk(
     try {
       const { data } = await logInAPI(credentials);
       setToken(data.token);
+      console.log(data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -40,4 +48,20 @@ export const logout = createAsyncThunk(
     }
   }
 );
-// export cons
+export const refresh = createAsyncThunk(
+  'auth/refresh',
+  async (_, { rejectWithValue, getState }) => {
+    const persistedToken = getState().auth.token;
+
+    if (!persistedToken) {
+      return rejectWithValue('enable to fetch user!!!');
+    }
+    try {
+      setToken(persistedToken);
+      const { data } = await currentUserAPI();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);

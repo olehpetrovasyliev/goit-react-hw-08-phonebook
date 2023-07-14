@@ -7,7 +7,7 @@ import { logout } from 'redux/auth/authOperatoins';
 
 export const UserHeader = () => {
   const user = useSelector(selectUser);
-  const { name } = user;
+  const { email } = user;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleClick = () => {
@@ -17,8 +17,10 @@ export const UserHeader = () => {
   return (
     <header>
       <NavItems />
-      <h2>hello, {name}</h2>
-      <button onClick={handleClick}>Log out</button>
+      <p> {email}</p>
+      <button type="button" onClick={handleClick}>
+        Log out
+      </button>
     </header>
   );
 };

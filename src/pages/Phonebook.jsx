@@ -8,12 +8,14 @@ import { selectContacts } from 'redux/contacts/selectors';
 
 export const Phonebook = () => {
   const contacts = useSelector(selectContacts);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllContacts());
+    console.log();
   }, [dispatch]);
-  console.log(contacts);
+
   return (
     <>
       <h1>Phonebook</h1>

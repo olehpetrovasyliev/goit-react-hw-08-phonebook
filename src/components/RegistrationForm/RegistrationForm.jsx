@@ -13,9 +13,6 @@ const RegistrationForm = () => {
     password: '',
   });
   const dispatch = useDispatch();
-  // const handleChange = ({target}) = {
-  //   setCredentals(prev => ({ ...prev, [target.name]: target.value }))
-  // };
   const handleChange = ({ target }) => {
     setCredentials(prev => ({ ...prev, [target.name]: target.value }));
     console.log(credentials);

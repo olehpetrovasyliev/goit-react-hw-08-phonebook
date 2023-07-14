@@ -9,7 +9,7 @@ export const NavItems = () => {
   return (
     <div>
       <NavLink to={'/'}>Home</NavLink>
-      {isLoggedIn && <NavLink to={'/phonebook'}>phonebook</NavLink>}
+      <NavLink to={'/phonebook'}>phonebook</NavLink>
     </div>
   );
 };

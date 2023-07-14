@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { register, login, logout } from './authOperatoins';
+import { register, login, logout, refresh } from './authOperatoins';
 
 const initialState = {
   user: { name: '', email: '', password: '' },
@@ -7,6 +7,7 @@ const initialState = {
   isLoggedIn: false,
   isRefreshing: false,
   error: '',
+  loading: false,
 };
 const authSlice = createSlice({
   name: 'auth',
@@ -17,30 +18,42 @@ const authSlice = createSlice({
         state.user = payload.user;
         state.token = payload.token;
         state.isLoggedIn = true;
-        state.isRefreshing = false;
+        state.loading = false;
       })
       .addCase(login.fulfilled, (state, { payload }) => {
         state.user = payload.user;
-        state.token = payload.user.token;
+        state.token = payload.token;
         state.isLoggedIn = true;
-        state.isRefreshing = false;
+        state.loading = false;
       })
       .addCase(logout.fulfilled, (state, { payload }) => {
         state.user = { name: '', email: '', password: '' };
         state.token = null;
         state.isLoggedIn = false;
       })
+      .addCase(refresh.fulfilled, (state, { payload }) => {
+        state.user = payload;
+        state.token = payload;
+        state.isRefreshing = false;
+        state.loading = false;
+        state.isLoggedIn = true;
+      })
+      .addCase(refresh.pending, (state, { payload }) => {
+        state.isRefreshing = true;
+      })
+      .addCase(refresh.rejected, (state, { payload }) => {
+        state.isRefreshing = false;
+      })
       .addMatcher(
         action => action.type.endsWith('/pending'),
         state => {
-          state.isRefreshing = true;
-          state.isRefreshing = false;
+          state.loading = true;
         }
       )
       .addMatcher(
         action => action.type.endsWith('/rejected'),
         (state, { payload }) => {
-          state.isRefreshing = false;
+          state.loading = false;
           state.error = payload;
         }
       );

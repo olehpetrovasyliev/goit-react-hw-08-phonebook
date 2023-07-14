@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { login } from 'redux/auth/authOperatoins';
 import { selectIsLoggedIn } from 'redux/auth/authSelectors';
@@ -8,6 +8,7 @@ import { selectIsLoggedIn } from 'redux/auth/authSelectors';
 export const LoginForm = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
@@ -16,13 +17,10 @@ export const LoginForm = () => {
   };
   const handleSubmit = e => {
     e.preventDefault();
+    console.log(location);
     dispatch(login(credentials))
       .unwrap()
-      .then(
-        isLoggedIn
-          ? () => navigate('/phonebook')
-          : alert('wrolg login or password')
-      );
+      .then(() => navigate(location.state?.from.pathname ?? '/'));
 
     // thunk
   };

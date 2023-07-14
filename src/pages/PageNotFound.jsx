@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 
-const PageNotFound = () => {
+export const PageNotFound = () => {
   const navigate = useNavigate();
   return (
     <div>
