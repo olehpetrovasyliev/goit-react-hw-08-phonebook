@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { PreetyNav, PrettyNavLink } from './NavItems.styled';
 export const NavItems = () => {
   return (
