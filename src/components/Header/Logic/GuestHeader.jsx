@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { NavItems } from './NavItems';
+import { NavItems } from '../NavItems/NavItems';
 
 export const GuestHeader = () => {
   return (

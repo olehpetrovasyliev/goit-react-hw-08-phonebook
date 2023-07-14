@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { login } from 'redux/auth/authOperatoins';
 import { selectIsLoggedIn } from 'redux/auth/authSelectors';
+import { InputField, PrettyForm, SubmitButton } from '../Form.styled';
 
 export const LoginForm = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -17,7 +18,6 @@ export const LoginForm = () => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(location);
     dispatch(login(credentials))
       .unwrap()
       .then(() => navigate(location.state?.from.pathname ?? '/'));
@@ -25,22 +25,22 @@ export const LoginForm = () => {
     // thunk
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <input
+    <PrettyForm onSubmit={handleSubmit}>
+      <InputField
         type="email"
         name="email"
         value={credentials.email}
         onChange={handleChange}
       />
-      <input
+      <InputField
         type="password"
         name="password"
         value={credentials.password}
         onChange={handleChange}
       />
-      <button type="submit">Log In</button>
+      <SubmitButton type="submit">Log In</SubmitButton>
       <NavLink to={'/signup'}>Sign Up</NavLink>
-    </form>
+    </PrettyForm>
   );
 };
 

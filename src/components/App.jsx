@@ -16,8 +16,8 @@ import { Registration } from 'pages/Registration';
 import { PageNotFound } from 'pages/PageNotFound';
 import { Layout } from 'pages/Layout';
 import PrivateRoute from 'hoc/PrivateRoute';
-import RegistrationForm from './RegistrationForm/RegistrationForm';
-import { LoginForm } from './LoginForm/LoginForm';
+import RegistrationForm from './Form/RegistrationForm/RegistrationForm';
+import { LoginForm } from './Form/LoginForm/LoginForm';
 import { PublicRoute } from 'hoc/PublicRoute';
 import { refresh } from 'redux/auth/authOperatoins';
 
@@ -33,20 +33,27 @@ export const App = () => {
     <h1>Loading</h1>
   ) : (
     <Routes>
-      <Route path="" element={<Layout />}>
+      <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route
           path="/signup"
-          element={<PublicRoute children={<Registration />} />}
+          element={
+            <PublicRoute
+              children={<Registration />}
+              redirrectTo={'/phonebook'}
+            />
+          }
         />
         <Route
           path="/login"
-          element={<PublicRoute children={<LoginForm />} />}
+          element={
+            <PublicRoute children={<LoginForm />} redirrectTo={'/phonebook'} />
+          }
         />
         <Route
           path="/phonebook"
           element={
-            <PrivateRoute>
+            <PrivateRoute redirrectTo={'/login'}>
               <Phonebook />
             </PrivateRoute>
           }

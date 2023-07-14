@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { register } from 'redux/auth/authOperatoins';
+import { InputField, PrettyForm, SubmitButton } from '../Form.styled';
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
@@ -15,7 +16,6 @@ const RegistrationForm = () => {
   const dispatch = useDispatch();
   const handleChange = ({ target }) => {
     setCredentials(prev => ({ ...prev, [target.name]: target.value }));
-    console.log(credentials);
   };
   const handleSubmit = e => {
     e.preventDefault();
@@ -23,32 +23,31 @@ const RegistrationForm = () => {
     dispatch(register(credentials))
       .unwrap()
       .then(() => navigate('/phonebook'));
-    console.log(credentials);
   };
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
+      <PrettyForm onSubmit={handleSubmit}>
+        <InputField
           type="text"
           name="name"
           value={credentials.name}
           onChange={handleChange}
         />
-        <input
+        <InputField
           type="email"
           name="email"
           value={credentials.email}
           onChange={handleChange}
         />
-        <input
+        <InputField
           type="password"
           name="password"
           value={credentials.password}
           onChange={handleChange}
         />
-        <button type="submit">Sign Up</button>
+        <SubmitButton type="submit">Sign Up</SubmitButton>
         <NavLink to={'/login'}>Log in</NavLink>
-      </form>
+      </PrettyForm>
     </div>
   );
 };

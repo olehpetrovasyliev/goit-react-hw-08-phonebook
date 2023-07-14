@@ -6,7 +6,7 @@ export const getAllContacts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await apiGet();
-      console.log(data);
+
       return data;
     } catch (error) {
       rejectWithValue(error.message);
