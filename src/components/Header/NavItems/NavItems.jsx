@@ -1,14 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { PreetyNav } from './NavItems.styled';
+import { PreetyNav, PrettyNavLink } from './NavItems.styled';
 export const NavItems = () => {
   return (
     <PreetyNav>
       <li>
-        <NavLink to={'/'}>Home</NavLink>
+        <PrettyNavLink to={'/'}>Home</PrettyNavLink>
       </li>
       <li>
-        <NavLink to={'/phonebook'}>phonebook</NavLink>
+        <PrettyNavLink to={'/phonebook'}>phonebook</PrettyNavLink>
       </li>
     </PreetyNav>
   );
